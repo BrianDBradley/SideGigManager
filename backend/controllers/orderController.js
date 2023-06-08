@@ -27,10 +27,9 @@ const createOrder = async (req, res) => {
 
 // Update an order
 const updateOrder = async (req, res) => {
-    //const { name, quantity, orderDate } = req.body
     const { id } = req.params
 
-    await Order.findOneAndUpdate({_id: id}, {name: "New Cupcakes"})
+    await Order.findOneAndUpdate({_id: id}, {...req.body}, {new: true})
         .then((docs)=>{
         console.log("Result :", docs);
      })
