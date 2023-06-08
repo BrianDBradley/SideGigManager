@@ -27,21 +27,18 @@ const createOrder = async (req, res) => {
 
 // Update an order
 const updateOrder = async (req, res) => {
+    //const { name, quantity, orderDate } = req.body
     const { id } = req.params
 
-    if(!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(400).json('Order Not Found')
-    }
-
-    const order = Order.findOneAndUpdate({_id: id}, {
-        ...req.body
+    await Order.findOneAndUpdate({_id: id}, {name: "New Cupcakes"})
+        .then((docs)=>{
+        console.log("Result :", docs);
+     })
+    .catch((err)=>{
+        console.log(err);
     })
 
-    if(!order){
-        return res.status(400).json('Order Not Found')
-    }
-
-    return res.status(400).json("Order Updated")
+    res.status(200).json("Update got")
 }
 
 // Delete an order
