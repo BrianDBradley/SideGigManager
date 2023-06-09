@@ -7,13 +7,15 @@ const userRoutes = require('./routes/userRoutes')
 const app = express()
 app.use(express.json())
 
-// FIX BEFORE POSTING TO GITHUB - ENVIRONMENT VARIABLES RETURNING UNDEFINED
-// CONNECTED DIRECTLY TO ADDRESS FOR TIME BEING
+// connect to DB
 mongoose.connect(process.env.MONGO_DB_URI)
 
+// use routes
 app.use('/orders', orderRoutes)
 app.use('/', userRoutes)
 
+// listen for requests, port 4000, display "Listening" to console to show app
+// launch successfully
 app.listen(4000, () => {
     console.log("Listening")
 })

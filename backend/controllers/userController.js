@@ -3,26 +3,35 @@ const mongoose = require('mongoose')
 
 // Create (POST) new user
 const createUser = async (req, res) => {
-    const {name, email} = req.body
+    // deconstruct body
+    const { name, email, password } = req.body
 
     try {
-        const user = await User.create({name, email})
+        // attempt to create user and respond with body if successful
+        const user = await User.create({name, email, password}).exec()
         return res.status(200).json(user)
     }
     catch(error) {
+        // display error
         return res.status(400).json({error: error.message})
     }
 }
 
 // GET user info
 const getUserInfo = async (req, res) => {
-    const userID = req.params
+    // receive userID from request paramters
+    const { id } = req.params
 
     try {
-        const user = User.findById(userID)
+        // search for and display user info
+        const user = await User.findById(id).exec()
+        if(!User) {
+            res.status(404).json("No User Found")
+        }
         res.status(200).json(user)
     } 
     catch(error) {
+        // display error
         return res.status(400).json({error: error.message})
     }
 }
