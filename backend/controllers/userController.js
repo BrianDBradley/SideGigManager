@@ -1,5 +1,6 @@
 const User = require('../models/userModel')
 const mongoose = require('mongoose')
+const { v4: uuidv4 } = require('uuid')
 
 // Create (POST) new user
 const createUser = async (req, res) => {
@@ -8,7 +9,10 @@ const createUser = async (req, res) => {
 
     try {
         // attempt to create user and respond with body if successful
-        const user = await User.create({name, email, password}).exec()
+        // add uuid to user, this will be used to track which orders and 
+        // materials belong to which users
+        const userUid = uuidv4()
+        const user = await User.create({ name, email, password, userUid })
         return res.status(200).json(user)
     }
     catch(error) {
