@@ -1,4 +1,6 @@
 const express = require('express')
+const session = require('express-session')
+const cookieParser = require('cookie-parser')
 const mongoose = require('mongoose')
 require('dotenv').config()
 
@@ -7,7 +9,14 @@ const userRoutes = require('./routes/userRoutes')
 const loginRoutes = require('./routes/loginRoutes')
 
 const app = express()
+app.use(session({
+	secret: 'SuperDuperSecretJamesBondStyleKeyAhhhhhhhh',
+	resave: true,
+	saveUninitialized: false
+}))
 app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+app.use(cookieParser())
 
 // connect to DB
 mongoose.connect(process.env.MONGO_DB_URI)
