@@ -28,7 +28,7 @@ const getUserInfo = async (req, res) => {
 
     try {
         // search for and display user info
-        const user = await User.findById(id).exec()
+        const user = await User.findOne(id).exec()
         if(!User) {
             res.status(404).json("No User Found")
         }
