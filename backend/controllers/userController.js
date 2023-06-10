@@ -1,17 +1,17 @@
 const User = require('../models/userModel')
 const mongoose = require('mongoose')
 const { v4: uuidv4 } = require('uuid')
+const bcrypt = require('bcryptjs')
 
 // Create (POST) new user
 const createUser = async (req, res) => {
     // deconstruct body
-    const { username, password } = req.body
+    let { username, password } = req.body
 
     try {
-        // attempt to create user and respond with body if successful
-        // add uuid to user, this will be used to track which orders and 
-        // materials belong to which users
         const userUid = uuidv4()
+        password = await bcrypt.hash(password, 1)
+
         const user = await User.create({ username, password, userUid })
         return res.status(200).json(user)
     }

@@ -1,21 +1,30 @@
 const User = require('../models/userModel')
-//const sessions = require('express-session')
 const mongoose = require('mongoose')
+const bcrypt = require('bcryptjs')
 
 const login = async (req, res) => {
     const { username, password } = req.body
 
     // attempt to find user with username
     try {
-        const user = User.findOne({ username, password }).exec()
+        const user = await User.findOne({ username }).exec()
 
         if(!user) {
             res.status(200).json("User Not Found")
         }
 
-        req.session.loggedin = true
-        req.session.username = username
-        res.redirect('/orders')
+        bcrypt.compare(password, user.password, (err, data) => {
+            if(err) throw err
+
+            if(data) {
+                req.session.loggedin = true
+                req.session.username = username
+                res.redirect('/orders')
+            }
+            else {
+                res.status(404).json("Invalid Login")
+            }
+        })
 
     } catch(error) {
         res.status(404).json({error: error.message})
