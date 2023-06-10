@@ -7,6 +7,7 @@ require('dotenv').config()
 const orderRoutes = require('./routes/orderRoutes')
 const userRoutes = require('./routes/userRoutes')
 const loginRoutes = require('./routes/loginRoutes')
+const materialRoutes = require('./routes/materialRoutes')
 
 const app = express()
 app.use(session({
@@ -21,7 +22,8 @@ app.use(cookieParser())
 // connect to DB
 mongoose.connect(process.env.MONGO_DB_URI)
 
-// use routes
+// use 
+app.use('/materials', materialRoutes)
 app.use('/login', loginRoutes)
 app.use('/orders', orderRoutes)
 app.use('/', userRoutes)
