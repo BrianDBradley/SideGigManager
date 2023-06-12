@@ -4,7 +4,7 @@ const mongoose = require('mongoose')
 // get all orders
 const displayCurrentOrders = async (req, res) => {
     try {
-        if(req.session.loggedin){
+        if(req.session.authorized){
             const orders = await Order.find({}).sort({createdAt: -1}).exec()
             return res.status(200).json(orders)
         }

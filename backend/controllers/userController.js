@@ -13,6 +13,7 @@ const createUser = async (req, res) => {
         password = await bcrypt.hash(password, 1)
 
         const user = await User.create({ username, password, userUid })
+        res.cookie('username', username, { secure: true })
         return res.status(200).json(user)
     }
     catch(error) {

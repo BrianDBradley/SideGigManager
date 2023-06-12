@@ -17,7 +17,7 @@ const login = async (req, res) => {
             if(err) throw err
 
             if(data) {
-                req.session.loggedin = true
+                req.session.authorized = true
                 req.session.username = username
                 res.redirect('/orders')
             }
