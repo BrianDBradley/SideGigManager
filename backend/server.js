@@ -8,6 +8,7 @@ const orderRoutes = require('./routes/orderRoutes')
 const userRoutes = require('./routes/userRoutes')
 const loginRoutes = require('./routes/loginRoutes')
 const materialRoutes = require('./routes/materialRoutes')
+const productRoutes = require('./routes/productRoutes')
 
 const logout = require('./controllers/logoutController')
 
@@ -33,6 +34,7 @@ app.use(express.json())
 mongoose.connect(process.env.MONGO_DB_URI)
 
 // use
+app.use('/products', productRoutes)
 app.use('/logout', logout)
 app.use('/materials', materialRoutes)
 app.use('/login', loginRoutes)
