@@ -9,6 +9,8 @@ const userRoutes = require('./routes/userRoutes')
 const loginRoutes = require('./routes/loginRoutes')
 const materialRoutes = require('./routes/materialRoutes')
 
+const logout = require('./controllers/logoutController')
+
 const app = express()
 
 const store = new mongoStore({
@@ -30,7 +32,8 @@ app.use(express.json())
 // connect to DB
 mongoose.connect(process.env.MONGO_DB_URI)
 
-// use 
+// use
+app.use('/logout', logout)
 app.use('/materials', materialRoutes)
 app.use('/login', loginRoutes)
 app.use('/orders', orderRoutes)
