@@ -17,8 +17,10 @@ const login = async (req, res) => {
             if(err) throw err
 
             if(data) {
+                const { userUid } = user.userUid
+
                 req.session.authorized = true
-                req.session.username = username
+                req.session.uniqueID = userUid
                 res.redirect('/orders')
             }
             else {
