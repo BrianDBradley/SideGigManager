@@ -2,10 +2,10 @@ const Product = require('../models/productModel')
 const mongoose = require('mongoose')
 
 const createProduct = async (req, res) => {
-    const { name, pricePerUnit } = req.body
+    const { name, costToProduce } = req.body
 
     try {
-        const product = await Product.create({name, pricePerUnit})
+        const product = await Product.create({name, costToProduce})
         res.status(200).json(product)
     } catch(err) {
         res.status(404).json({error: error.message})
