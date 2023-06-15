@@ -30,23 +30,24 @@ const Login = () => {
     }
 
     return (
-        <form>  
+        <form onSubmit={handleSubmit}>  
             <h1>Login</h1>
                 <input
                     type="text"
                     placeholder="Username"
                     id="username"
-                    onSubmit={handleSubmit}
+                    onChange={(e) => setUsername(e.target.value)}
                 />
                 <br></br>
                 <input
                     type="password"
                     placeholder="password"
                     id="password"
-                    onSubmit={handleSubmit}
+                    onChange={(e) => setPassword(e.target.value)}
                 />
                 <br></br>
                <button>Submit</button>
+               {error && <div className="error">{error}</div>}
         </form>
     )
 }

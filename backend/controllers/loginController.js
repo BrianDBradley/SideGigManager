@@ -22,6 +22,7 @@ const login = async (req, res) => {
                 req.session.authorized = true
                 req.session.uniqueID = userUid
                 res.redirect('/orders')
+                console.log('Login Successful')
             }
             else {
                 res.status(404).json("Invalid Login")
