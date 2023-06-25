@@ -1,6 +1,9 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Login from './pages/login'
 import Dashboard from './pages/dashboard';
+import Materials from './pages/materials';
+import Products from './pages/products';
+import Orders from './pages/orders';
 
 function App() {
   return (
@@ -15,6 +18,18 @@ function App() {
             <Route 
             path = "/dashboard"
             element = {< Dashboard />}
+            />
+            <Route 
+            path = "/materials"
+            element = {< Materials />}
+            />
+            <Route 
+            path = "/products"
+            element = {< Products />}
+            />
+            <Route 
+            path = "/orders"
+            element = {< Orders />}
             />
           </Routes>
         </div>
