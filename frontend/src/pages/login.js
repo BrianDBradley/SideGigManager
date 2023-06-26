@@ -21,6 +21,7 @@ const Login = () => {
         })
 
         const json = await response.json()
+        console.log(json)
 
         if(!response.ok) {
             setError(json.error)
@@ -29,7 +30,6 @@ const Login = () => {
             setError(null)
             setUsername('')
             setPassword('')
-
             navigate('/dashboard')
         }
     }
