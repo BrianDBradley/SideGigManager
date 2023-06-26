@@ -38,7 +38,7 @@ app.use('/products', productRoutes)
 app.use('/logout', logout)
 app.use('/materials', materialRoutes)
 app.use('/login', loginRoutes)
-app.use('/orders', orderRoutes)
+app.use('/control-orders', orderRoutes)
 app.use('/', userRoutes)
 
 // listen for requests, port 4000, display "Listening" to console to show app
