@@ -21,8 +21,6 @@ const login = async (req, res) => {
 
                 req.session.authorized = true
                 req.session.uniqueID = userUid
-                console.log(req.session.uniqueID)
-                console.log('Login Successful')
                 res.status(200).json("")
             }
             else {

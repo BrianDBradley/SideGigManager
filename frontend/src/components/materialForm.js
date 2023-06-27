@@ -20,6 +20,7 @@ const MaterialForm = () => {
         const json = await response.json()
 
         if(response.ok) {
+            setName("")
             setTotalCost("")
             setQuantity("")
             setError(null)

@@ -39,7 +39,7 @@ app.use('/logout', logout)
 app.use('/control-materials', materialRoutes)
 app.use('/login', loginRoutes)
 app.use('/control-orders', orderRoutes)
-app.use('/', userRoutes)
+app.use('/signup', userRoutes)
 
 // listen for requests, port 4000, display "Listening" to console to show app
 // launch successfully
