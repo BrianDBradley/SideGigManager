@@ -3,13 +3,12 @@ import { useState } from "react"
 const MaterialForm = () => {
     const [totalCost, setTotalCost] = useState("")
     const [quantity, setQuantity] = useState("")
-    const [costPerPart, setCostPerPart] = useState("")
     const [error, setError] = useState(null)
 
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        const newMaterial = { totalCost, quantity, costPerPart }
+        const newMaterial = { totalCost, quantity }
 
         const response = await fetch('/control-materials', {
             method: 'POST',
@@ -22,7 +21,6 @@ const MaterialForm = () => {
         if(response.ok) {
             setTotalCost("")
             setQuantity("")
-            setCostPerPart("")
             setError(null)
         }
 
@@ -38,17 +36,21 @@ const MaterialForm = () => {
 
             <label>Total Cost: </label>
             <input
-                type="text"
-                onChange={(e)=>setTotalCost}
-                value={totalCost}
+                type="number"
+                onChange={(e)=>setTotalCost(e.target.value)}
+                id="totalCost"
             />
+
+            <br></br>
 
             <label>Quantity: </label>
             <input
-                type="text"
-                onChange={(e)=>setQuantity}
-                value={quantity}
+                type="number"
+                onChange={(e)=>setQuantity(e.target.value)}
+                id="quantity"
             />
+
+            <br></br>
 
             <button>Add Material</button>
             {error && <div className="error">{error}</div>}
