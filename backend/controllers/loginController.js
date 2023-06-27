@@ -17,10 +17,11 @@ const login = async (req, res) => {
             if(err) throw err
 
             if(data) {
-                const { userUid } = user.userUid
+                const userUid  = user.userUid
 
                 req.session.authorized = true
                 req.session.uniqueID = userUid
+                console.log(req.session.uniqueID)
                 console.log('Login Successful')
                 res.status(200).json("")
             }

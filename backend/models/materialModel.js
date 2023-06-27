@@ -2,6 +2,11 @@ const mongoose = require('mongoose')
 
 const materialSchema = new mongoose.Schema(
     {
+        name: 
+        {
+            type: String,
+            required: true
+        },
         totalCost:
         {
             type: Number,
@@ -11,6 +16,7 @@ const materialSchema = new mongoose.Schema(
             type: Number,
             required: true
         },
+        userUID: String,
         costPerPart: Number
     }
 )

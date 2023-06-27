@@ -4,13 +4,20 @@ const mongoose = require('mongoose')
 
 // Create a new material
 const createNewMaterial = async (req, res) => {
-    const { totalCost, quantity } = req.body
+    const { name, totalCost, quantity } = req.body
 
     const costPerPart = totalCost / quantity
+    const userUID = req.session.uniqueID
+    console.log(req.session.uniqueID)
 
     try {
-        const material = await Material.create({totalCost, quantity, costPerPart})
-        return res.status(200).json(material)
+        if(req.session.authorized) {
+            const material = await Material.create({name, totalCost, quantity, userUID, costPerPart})
+            return res.status(200).json(material)
+        }
+        else {
+            return res.status(400).json("Not Authorized")
+        }
     }
     catch(error) {
         return res.status(400).json({error: error.message})

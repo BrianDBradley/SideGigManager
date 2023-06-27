@@ -1,6 +1,7 @@
 import { useState } from "react"
 
 const MaterialForm = () => {
+    const [name, setName] = useState("")
     const [totalCost, setTotalCost] = useState("")
     const [quantity, setQuantity] = useState("")
     const [error, setError] = useState(null)
@@ -8,7 +9,7 @@ const MaterialForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        const newMaterial = { totalCost, quantity }
+        const newMaterial = { name, totalCost, quantity }
 
         const response = await fetch('/control-materials', {
             method: 'POST',
@@ -33,6 +34,13 @@ const MaterialForm = () => {
         <form className="create-material" onSubmit={handleSubmit}>
             <h1>Add a New Material</h1>
             <br></br>
+
+            <label>Material Name: </label>
+            <input
+                type="string"
+                onChange={(e)=>setName(e.target.value)}
+                id="name"
+            />
 
             <label>Total Cost: </label>
             <input
