@@ -8,7 +8,6 @@ const createNewMaterial = async (req, res) => {
 
     const costPerPart = totalCost / quantity
     const userUID = req.session.uniqueID
-    console.log(req.session.uniqueID)
 
     try {
         if(req.session.authorized) {
@@ -27,7 +26,8 @@ const createNewMaterial = async (req, res) => {
 const getMaterials = async (req, res) => {
     try {
         if(req.session.authorized){
-            const materials = await Material.find({}).sort({createdAt: -1}).exec()
+            const userUID = req.session.uniqueID
+            const materials = await Material.find({userUID: userUID}).sort({createdAt: -1}).exec()
             return res.status(200).json(materials)
         }
     } 
