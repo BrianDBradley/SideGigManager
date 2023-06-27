@@ -19,7 +19,7 @@ const createNewMaterial = async (req, res) => {
 
 const getMaterials = async (req, res) => {
     try {
-        if(req.session.loggedin){
+        if(req.session.authorized){
             const materials = await Material.find({}).sort({createdAt: -1}).exec()
             return res.status(200).json(materials)
         }
