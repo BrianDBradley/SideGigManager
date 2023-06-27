@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import MaterialForm from "../components/materialForm"
 
 const Materials = () => {
     const [materials, setMaterials] = useState("")
@@ -25,15 +26,18 @@ const Materials = () => {
 
 
     return (
-        <div className="materials">
-            <h1>Materials</h1>
-            <br></br>
-            {materials && materials.map((material) => (
-                <><p>{material.totalCost}</p>
-                <p>{material.quantity}</p>
-                <p>{material.costPerPart}</p>
-                <br></br></>
+        <div className="material-page">
+            <div className="materials">
+                <h1>Materials</h1>
+                <br></br>
+                {materials && materials.map((material) => (
+                    <><p>{material.totalCost}</p>
+                    <p>{material.quantity}</p>
+                    <p>{material.costPerPart}</p>
+                    <br></br></>
             ))}
+            </div>
+            <MaterialForm></MaterialForm>
         </div>
     )
 }
