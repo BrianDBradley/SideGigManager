@@ -4,10 +4,13 @@ const {
     createProduct,
     getProduct,
     updateProduct,
-    deleteProduct
+    deleteProduct,
+    getAllProducts
 } = require('../controllers/productController')
 
-router.get('/', getProduct)
+router.get('/', getAllProducts)
+
+router.get('/:id', getProduct)
 
 router.post('/', createProduct)
 

@@ -34,7 +34,7 @@ app.use(express.json())
 mongoose.connect(process.env.MONGO_DB_URI)
 
 // use
-app.use('/products', productRoutes)
+app.use('/control-products', productRoutes)
 app.use('/logout', logout)
 app.use('/control-materials', materialRoutes)
 app.use('/login', loginRoutes)
