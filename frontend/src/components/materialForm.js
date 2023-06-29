@@ -45,7 +45,7 @@ const MaterialForm = () => {
 
             <label>Total Cost: </label>
             <input
-                type="number"
+                type="string"
                 onChange={(e)=>setTotalCost(e.target.value)}
                 id="totalCost"
             />
@@ -54,7 +54,7 @@ const MaterialForm = () => {
 
             <label>Quantity: </label>
             <input
-                type="number"
+                type="string"
                 onChange={(e)=>setQuantity(e.target.value)}
                 id="quantity"
             />

@@ -10,11 +10,11 @@ const productSchema = new mongoose.Schema(
        },
        costToProduce:
        {
-            type: Decimal128,
+            type: String,
             required: true,
        },
        userUID: String,
-       pricePerUnit: Decimal128
+       pricePerUnit: String
     }
 )
 

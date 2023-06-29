@@ -9,15 +9,15 @@ const materialSchema = new mongoose.Schema(
         },
         totalCost:
         {
-            type: Number,
+            type: String,
             required: true
         },
         quantity: {
-            type: Number,
+            type: String,
             required: true
         },
         userUID: String,
-        costPerPart: Number
+        costPerPart: String
     }
 )
 

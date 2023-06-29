@@ -31,7 +31,8 @@ const Materials = () => {
                 <h1>Materials</h1>
                 <br></br>
                 {materials && materials.map((material) => (
-                    <><p>{material.totalCost}</p>
+                    <><p>{material.name}</p>
+                    <p>{material.totalCost}</p>
                     <p>{material.quantity}</p>
                     <p>{material.costPerPart}</p>
                     <br></br></>

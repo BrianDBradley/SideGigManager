@@ -6,7 +6,10 @@ const mongoose = require('mongoose')
 const createNewMaterial = async (req, res) => {
     const { name, totalCost, quantity } = req.body
 
+    Number(totalCost, quantity)
     const costPerPart = totalCost / quantity
+    String(totalCost, quantity, costPerPart)
+
     const userUID = req.session.uniqueID
 
     try {
