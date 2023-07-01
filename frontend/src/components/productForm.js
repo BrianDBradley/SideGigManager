@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 
 const ProductForm = () => {
     const [materials, setMaterials] = useState("")
-    //const [usedMaterials, setUsedMaterials] = useState("")
+    const [weight, setWeight] = useState("")
 
     const [name, setName] = useState("")
     const [costToProduce, setCostToProduce] = useState("")
@@ -61,11 +61,11 @@ const ProductForm = () => {
                 type="string"
                 onChange={(e)=>setName(e.target.value)}
                 id="name"
-                step={.01}
-                min={0}
             />
 
             <br></br>
+
+            <h2>Materials Used:</h2>
 
             <select>
             {materials && materials.map((material) => (
@@ -73,7 +73,16 @@ const ProductForm = () => {
             ))}
             </select>
 
-            <button>Add Product</button>
+            <label>Amount Used: </label>
+            <input
+                type="string"
+                onChange={(e)=>setWeight(e.target.value)}
+                id="weight"
+                step={.01}
+                min={0}
+            />
+
+            <button>Add Material</button>
             {error && <div className="error">{error}</div>}
         </form>
     )
