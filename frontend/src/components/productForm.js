@@ -43,10 +43,9 @@ const ProductForm = () => {
     const handleChange = (e, index) => {
         e.preventDefault()
 
-        const {className, value} = e.target
-        const previousData = [...productInputs]
-        previousData[index][className] = value
-        setProductInputs(previousData)
+        const previousState = [...productInputs]
+        previousState[index].material = e.target.value
+        setProductInputs(previousState)
     }
 
     return (
