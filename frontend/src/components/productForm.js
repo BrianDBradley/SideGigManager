@@ -35,17 +35,25 @@ const ProductForm = () => {
         setProductInputs([...productInputs, {material: '', amount: 0}])
     }
 
-    const handlePrint = (e) => {
-        e.preventDefault()
-        console.log(productInputs)
-    }
-
-    const handleChange = (e, index) => {
+    const handleMaterialChange = (e, index) => {
         e.preventDefault()
 
         const previousState = [...productInputs]
         previousState[index].material = e.target.value
         setProductInputs(previousState)
+    }
+
+    const handleWeightChange = (e, index) => {
+        e.preventDefault()
+        
+        const previousState = [...productInputs]
+        previousState[index].amount = e.target.value
+        setProductInputs(previousState)
+    }
+
+    const handlePrint = (e) => {
+        e.preventDefault()
+        console.log(productInputs)
     }
 
     return (
@@ -54,8 +62,8 @@ const ProductForm = () => {
             <br></br>
 
             {productInputs.map((input, index) => (
-                <div>
-                    <select onChange = {(e) => handleChange(e, index)}>
+                <div className="new-product-inputs">
+                    <select onChange = {(e) => handleMaterialChange(e, index)}>
                         {materials && materials.map((material) => (
                             <option 
                             className="material"
@@ -64,6 +72,15 @@ const ProductForm = () => {
                             </option>
                         ))}
                     </select>
+                    
+                    <label>Amount Used: </label>
+                    <input
+                        type="string"
+                        onChange={(e => handleWeightChange(e, index))}
+                        id="weight"
+                        step={.01}
+                        min={0}
+                    />
                 </div>
             ))}
 
