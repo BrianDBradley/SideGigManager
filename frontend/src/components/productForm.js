@@ -30,53 +30,47 @@ const ProductForm = () => {
         getMaterials()
     }, [materials])
 
-    const handleSubmit = async (e) => {
-        e.preventDefault()
-
-        const newProduct = { name, costToProduce, pricePerUnit }
-
-        const response = await fetch('/control-products', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(newProduct)
-        })
-
-        const json = await response.json()
-
-        if(response.ok) {
-            setName("")
-            setCostToProduce("")
-            setPricePerUnit("")
-            setError(null)
-        }
-
-        else {
-            setError(json.error)
-        }
-    }
-
     const handleAdd = (e) => {
         e.preventDefault()
         setProductInputs([...productInputs, {material: '', amount: 0}])
     }
 
+    const handlePrint = (e) => {
+        e.preventDefault()
+        console.log(productInputs)
+    }
+
+    const handleChange = (e, index) => {
+        e.preventDefault()
+
+        const {className, value} = e.target
+        const previousData = [...productInputs]
+        previousData[index][className] = value
+        setProductInputs(previousData)
+    }
+
     return (
-        <form className="create-product" onSubmit={handleSubmit}>
+        <form className="create-product">
             <h2>Add a New Product</h2>
             <br></br>
 
-            {productInputs.map((material, index) => (
+            {productInputs.map((input, index) => (
                 <div>
-                    <select>
+                    <select onChange = {(e) => handleChange(e, index)}>
                         {materials && materials.map((material) => (
-                            <option value={material.name}>{material.name}</option>
-
+                            <option 
+                            className="material"
+                            value={material.name}>
+                            {material.name}
+                            </option>
                         ))}
                     </select>
                 </div>
             ))}
 
             <button onClick={handleAdd}>Add Material</button>
+
+            <button onClick={handlePrint}>Log</button>
 
         {error && <div className="error">{error}</div>}
     </form>
