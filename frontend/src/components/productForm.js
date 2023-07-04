@@ -1,8 +1,12 @@
 import { useState, useEffect } from "react"
 
 const ProductForm = () => {
-    const [materials, setMaterials] = useState("")
-    const [weight, setWeight] = useState("")
+    const [materials, setMaterials] = useState('')
+
+    const [productInputs, setProductInputs] = useState([
+        {material: '', amount: 0}
+    ])
+
 
     const [name, setName] = useState("")
     const [costToProduce, setCostToProduce] = useState("")
@@ -51,40 +55,31 @@ const ProductForm = () => {
         }
     }
 
+    const handleAdd = (e) => {
+        e.preventDefault()
+        setProductInputs([...productInputs, {material: '', amount: 0}])
+    }
+
     return (
         <form className="create-product" onSubmit={handleSubmit}>
-            <h1>Add a New Product</h1>
+            <h2>Add a New Product</h2>
             <br></br>
 
-            <label>Product Name: </label>
-            <input
-                type="string"
-                onChange={(e)=>setName(e.target.value)}
-                id="name"
-            />
+            {productInputs.map((material, index) => (
+                <div>
+                    <select>
+                        {materials && materials.map((material) => (
+                            <option value={material.name}>{material.name}</option>
 
-            <br></br>
-
-            <h2>Materials Used:</h2>
-
-            <select>
-            {materials && materials.map((material) => (
-                    <option value={material.name}>{material.name}</option>
+                        ))}
+                    </select>
+                </div>
             ))}
-            </select>
 
-            <label>Amount Used: </label>
-            <input
-                type="string"
-                onChange={(e)=>setWeight(e.target.value)}
-                id="weight"
-                step={.01}
-                min={0}
-            />
+            <button onClick={handleAdd}>Add Material</button>
 
-            <button>Add Material</button>
-            {error && <div className="error">{error}</div>}
-        </form>
+        {error && <div className="error">{error}</div>}
+    </form>
     )
 }
 
