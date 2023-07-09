@@ -2,9 +2,13 @@ const mongoose = require('mongoose')
 
 const orderSchema = new mongoose.Schema(
     {   
-       name: String,
+       customerName: String,
        orderDate: Date,
-       quantity: Number
+       userUID: String, 
+       contents: [{
+            product: String,
+            quantity: String
+       }]
     }
 )
 
