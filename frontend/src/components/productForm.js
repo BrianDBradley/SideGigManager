@@ -9,9 +9,11 @@ const ProductForm = () => {
 
 
     const [name, setName] = useState("")
-    const [costToProduce, setCostToProduce] = useState("")
-    const [pricePerUnit, setPricePerUnit] = useState("")
+    const [costToProduce, setCostToProduce] = useState(0)
+    const [pricePerUnit, setPricePerUnit] = useState(0)
     const [error, setError] = useState(null)
+
+    // DATA UPDATES BASED ON INPUTS
 
     useEffect(() => {
         const getMaterials = async () => {
@@ -28,13 +30,64 @@ const ProductForm = () => {
             // TO-DO : handle unable to retrieve materials
         }
         getMaterials()
-    }, [materials])
+    }, [])
 
-    const handleAdd = (e) => {
+    useEffect(() => {
+        const getTotalCost = () => {
+            if(materials) {
+                let totalCost = 0
+                productInputs.forEach(input => {
+                    materials.forEach(material => {
+                        if(input.material === material.name)
+                        {
+                            const inputCost = Number(material.costPerPart) * Number(input.amount)
+                            totalCost += inputCost
+                        }
+                    })
+                })
+                const newSellingPrice = totalCost * 3
+                setCostToProduce(totalCost)
+                setPricePerUnit(newSellingPrice)
+            }
+        }
+        getTotalCost()
+    }, [productInputs, materials])
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+
+        const newProduct = { name, costToProduce, pricePerUnit }
+
+        const response = await fetch('/control-products', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(newProduct)
+        })
+
+        const json = await response.json()
+
+        if(response.ok) {
+            setName("")
+            setCostToProduce("")
+            setPricePerUnit("")
+            setError(null)
+        }
+
+        else {
+            setError(json.error)
+        }
+    }
+
+
+    // HANDLING FORM INPUTS
+
+    // adds another form for new product inputs
+    const handleAddMaterialComponent = (e) => {
         e.preventDefault()
         setProductInputs([...productInputs, {material: '', amount: 0}])
     }
 
+    // handle changes to material information forms
     const handleMaterialChange = (e, index) => {
         e.preventDefault()
 
@@ -43,6 +96,7 @@ const ProductForm = () => {
         setProductInputs(previousState)
     }
 
+    // handle changes in input for amount of material used
     const handleWeightChange = (e, index) => {
         e.preventDefault()
         
@@ -51,15 +105,21 @@ const ProductForm = () => {
         setProductInputs(previousState)
     }
 
-    const handlePrint = (e) => {
-        e.preventDefault()
-        console.log(productInputs)
-    }
-
     return (
         <form className="create-product">
             <h2>Add a New Product</h2>
             <br></br>
+
+            <label>Product Name: </label>
+            <input
+                type="string"
+                onChange={(e)=>setName(e.target.value)}
+                id="name"
+            />
+
+            <br></br>
+
+            <h2>Materials Used:</h2>
 
             {productInputs.map((input, index) => (
                 <div className="new-product-inputs">
@@ -84,9 +144,9 @@ const ProductForm = () => {
                 </div>
             ))}
 
-            <button onClick={handleAdd}>Add Material</button>
+            <button onClick={handleAddMaterialComponent}>Add Material</button>
 
-            <button onClick={handlePrint}>Log</button>
+            <button onClick={handleSubmit}>Add Product</button>
 
         {error && <div className="error">{error}</div>}
     </form>
