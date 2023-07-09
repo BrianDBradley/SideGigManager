@@ -13,6 +13,7 @@ const Orders = () => {
                 method: 'GET'
             }) 
             const json = await response.json()
+            console.log(json)
     
             if(response.ok) {
                 setOrders(json)
@@ -41,12 +42,16 @@ const Orders = () => {
             <div className="orders">
                 <h1>Orders</h1>
                 <br></br>
-                {orders && orders.map((order) => (
-                    <><p>{order.customerName}</p>
-                    <p>{order.contents.quantity}</p>
-                    <p>{order.orderDate}</p>
-                    <br></br></>
-                ))}
+                <div className="order-contents">
+                    {orders && orders.map((order) => (
+                        <><p>{order.customerName}</p>
+                        {order.contents.map((content) => (
+                            <p>{content.product}: {content.quantity}</p>
+                        ))}
+                        <p>{order.orderDate}</p>
+                        <br></br></>
+                    ))}
+                </div>
             </div>
             <OrderForm> </OrderForm>
         </div>
