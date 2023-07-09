@@ -8,6 +8,7 @@ const OrderForm = () => {
     ])
 
     const [customer, setCustomer] = useState("")
+    const [totalOrderPrice, setTotalOrderPrice] = useState(0)
 
     const [error, setError] = useState(null)
 
@@ -29,6 +30,25 @@ const OrderForm = () => {
         getProducts()
     }, [])
 
+    useEffect(() => {
+        const getTotalCost = () => {
+            if(products) {
+                let totalPrice = 0
+                orderInputs.forEach(input => {
+                    products.forEach(product => {
+                        if(input.product === product.name)
+                        {
+                            const productCost = input.quantity * product.pricePerUnit
+                            totalPrice += productCost
+                        }
+                    })
+                })
+            setTotalOrderPrice(totalPrice)
+            }
+        }
+        getTotalCost()
+    }, [orderInputs, products])
+
 
 
     // HANDLING FORM INPUTS
@@ -37,7 +57,7 @@ const OrderForm = () => {
         e.preventDefault()
 
         console.log(orderInputs)
-        const newOrder = { customer, orderInputs }
+        const newOrder = { customer, orderInputs, totalOrderPrice }
 
         const response = await fetch('/control-orders', {
             method: 'POST',

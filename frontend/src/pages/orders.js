@@ -48,6 +48,7 @@ const Orders = () => {
                         {order.contents.map((content) => (
                             <p>{content.product}: {content.quantity}</p>
                         ))}
+                        <p>{order.totalPrice}</p>
                         <p>{order.orderDate}</p>
                         <br></br></>
                     ))}

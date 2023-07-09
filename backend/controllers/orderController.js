@@ -15,14 +15,13 @@ const displayCurrentOrders = async (req, res) => {
 }
 
 // create new order
-// when taking in customer and order inputs, order inputs is properly taken in 
-// as an array of objects and can be accessed/manipulated
 const createOrder = async (req, res) => {
-    const { customer, orderInputs } = req.body
+    const { customer, orderInputs, totalOrderPrice } = req.body
     const newOrder = new Order({
         customerName: customer,
         orderDate: new Date().toJSON(),
         userUID: req.session.uniqueID,
+        totalPrice: totalOrderPrice,
         contents: orderInputs
     })
 

@@ -4,7 +4,8 @@ const orderSchema = new mongoose.Schema(
     {   
        customerName: String,
        orderDate: Date,
-       userUID: String, 
+       userUID: String,
+       totalPrice: String, 
        contents: [{
             product: String,
             quantity: String
